@@ -1,0 +1,22 @@
+{
+  "name": "react-mysql-admin",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "1.0.10"
+  },
+  "dependencies": {
+    "mysqlws": "^0.1.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "scripts": {
+    "start": "npm-run-all -p frontend-start backend-start",
+    "frontend-start": "react-scripts start",
+    "backend-start": "node node_modules/mysqlws/src/server",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
