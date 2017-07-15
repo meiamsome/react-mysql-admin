@@ -9,7 +9,10 @@
   "dependencies": {
     "mysqlws": "^0.1.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "npm-run-all -p frontend-start backend-start",
@@ -18,5 +21,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "proxy": {
+    "/ws/": {
+      "target": "ws://localhost:8080/",
+      "ws": true
+    }
   }
 }
