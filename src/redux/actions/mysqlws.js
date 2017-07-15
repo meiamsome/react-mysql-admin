@@ -84,7 +84,7 @@ export function query(q) {
             dispatch({
               type: QUERY,
               payload: {
-                status: FETCH.FETCHING,
+                status: FETCH.ERROR,
                 result: err,
               },
               error: true,

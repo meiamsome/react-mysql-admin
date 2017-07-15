@@ -20,6 +20,14 @@ function mysqlws_reducer(state = {
         ...state,
         pool: action.payload,
       }
+    case QUERY:
+      let id = action.meta.id;
+      let queries = state.queries.slice();
+      queries[id] = action.payload;
+      return {
+        ...state,
+        queries: queries,
+      }
     default:
       return state;
   }

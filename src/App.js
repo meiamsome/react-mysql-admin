@@ -46,8 +46,16 @@ class App extends Component {
     if(this.props.pool === null || this.props.pool.status !== FETCH.SUCCESS) {
       let enabled = this.props.pool === null ||
         this.props.pool.status === FETCH.ERROR;
+      let error = this.props.pool !== null &&
+        this.props.pool.status === FETCH.ERROR;
+      let error_message = "";
+      if(error) {
+        error_message = this.props.pool.result.sqlMessage ||
+                        this.props.pool.result.code || "";
+      }
       return (
         <form onSubmit={this.submit.bind(this)}>
+          <div>{error_message}</div>
           <input
             name="host"
             type="text"
