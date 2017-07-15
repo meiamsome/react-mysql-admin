@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 import FETCH from './redux/actions/fetch';
 import { initialize, createPool } from './redux/actions/mysqlws';
@@ -48,45 +51,63 @@ class App extends Component {
         this.props.pool.status === FETCH.ERROR;
       let error = this.props.pool !== null &&
         this.props.pool.status === FETCH.ERROR;
-      let error_message = "";
+      let error_element = "";
       if(error) {
-        error_message = this.props.pool.result.sqlMessage ||
-                        this.props.pool.result.code || "";
+        let error_message = this.props.pool.result.sqlMessage ||
+                      this.props.pool.result.code || "";
+        error_element = (
+          <div>
+            <h4>An error occured</h4>
+            <p>{error_message}</p>
+          </div>
+        )
       }
       return (
-        <form onSubmit={this.submit.bind(this)}>
-          <div>{error_message}</div>
-          <input
-            name="host"
-            type="text"
-            value={this.state.host}
-            disabled={!enabled}
-            onChange={this.handleChange.bind(this)} />
-          <input
-            name="username"
-            type="text"
-            value={this.state.username}
-            disabled={!enabled}
-            onChange={this.handleChange.bind(this)} />
-          <input
-            name="password"
-            type="password"
-            value={this.state.password}
-            disabled={!enabled}
-            onChange={this.handleChange.bind(this)} />
-          <input type="submit" value="Submit" />
-        </form>
+        <div className="login-page">
+          <form onSubmit={this.submit.bind(this)}>
+            <h1>Connect</h1>
+            {error_element}
+            <TextField
+              name="host"
+              floatingLabelText="Host"
+              type="text"
+              value={this.state.host}
+              disabled={!enabled}
+              onChange={this.handleChange.bind(this)} />
+              <br />
+            <TextField
+              name="username"
+              floatingLabelText="Username"
+              type="text"
+              value={this.state.username}
+              disabled={!enabled}
+              onChange={this.handleChange.bind(this)} />
+              <br />
+            <TextField
+              name="password"
+              floatingLabelText="password"
+              type="password"
+              value={this.state.password}
+              disabled={!enabled}
+              onChange={this.handleChange.bind(this)} />
+              <br />
+            <RaisedButton
+              label="Connect"
+              primary
+              type="submit" />
+            {
+              enabled ? "" :
+              <RefreshIndicator
+                status="loading"
+                className="loading" />
+            }
+          </form>
+        </div>
       )
     }
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        TODO
       </div>
     );
   }
