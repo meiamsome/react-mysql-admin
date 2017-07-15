@@ -52,7 +52,7 @@ export function createPool(pool_options) {
 
 export function query(q) {
   return (dispatch, getState) => {
-    let pool = getState().mysqlws.pool;
+    let pool = getState().mysqlws.pool.result;
     let query_id = getState().mysqlws.queries.length;
     dispatch({
       type: QUERY,

@@ -6,6 +6,7 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 import FETCH from '../redux/actions/fetch';
 import { initialize, createPool } from '../redux/actions/mysqlws';
+import Dashboard from './Dashboard.js';
 import './Connect.css';
 
 class Connect extends Component {
@@ -19,7 +20,7 @@ class Connect extends Component {
   }
 
   componentWillMount() {
-    this.props.initialize("ws://localhost:3000/ws/");
+    this.props.initialize("ws://" + window.location.host + "/ws/");
   }
 
   handleChange(event) {
@@ -104,11 +105,7 @@ class Connect extends Component {
         </div>
       )
     }
-    return (
-      <div>
-        TODO
-      </div>
-    );
+    return <Dashboard />;
   }
 }
 
