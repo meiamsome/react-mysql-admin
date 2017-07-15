@@ -4,12 +4,11 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
-import FETCH from './redux/actions/fetch';
-import { initialize, createPool } from './redux/actions/mysqlws';
-import logo from './logo.svg';
-import './App.css';
+import FETCH from '../redux/actions/fetch';
+import { initialize, createPool } from '../redux/actions/mysqlws';
+import './Connect.css';
 
-class App extends Component {
+class Connect extends Component {
   constructor(...props) {
     super(...props);
     this.state = {
@@ -106,7 +105,7 @@ class App extends Component {
       )
     }
     return (
-      <div className="App">
+      <div>
         TODO
       </div>
     );
@@ -126,4 +125,4 @@ export default connect(
       createPool: pool_options => dispatch(createPool(pool_options)),
     }
   }
-)(App);
+)(Connect);
