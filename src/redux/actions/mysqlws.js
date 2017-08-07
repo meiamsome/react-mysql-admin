@@ -7,15 +7,40 @@ export const POOL = 'POOL';
 export const QUERY = 'QUERY';
 
 export function initialize(address) {
-  return {
-    type: SOCKET,
-    payload: new mysqlws(address),
+  return (dispatch, getState) => {
+    dispatch({
+      type: SOCKET,
+      payload: {
+        status: FETCH.FETCHING,
+        result: null,
+      }
+    });
+    new mysqlws(address, function(err, instance) {
+      if(err) {
+        dispatch({
+          type: SOCKET,
+          payload: {
+            status: FETCH.ERROR,
+            result: err,
+          },
+          error: true,
+        });
+      } else {
+        dispatch({
+          type: SOCKET,
+          payload: {
+            status: FETCH.SUCCESS,
+            result: instance,
+          },
+        });
+      }
+    });
   }
 }
 
 export function createPool(pool_options) {
   return (dispatch, getState) => {
-    let mysql = getState().mysqlws.mysql;
+    let mysql = getState().mysqlws.mysql.result;
     let pool = mysql.createPool(pool_options);
 
     dispatch({

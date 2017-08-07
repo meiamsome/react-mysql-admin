@@ -39,10 +39,18 @@ class Connect extends Component {
   }
 
   render() {
-    if(this.props.ws === null) {
+    if(this.props.ws === null || this.props.ws.status === FETCH.FETCHING) {
       return (
         <div>
           Connecting...
+        </div>
+      )
+    }
+    if(this.props.ws.status === FETCH.ERROR) {
+      return (
+        <div>
+          <h1>Failed to connect to the web socket.</h1>
+          <p>{this.props.ws.result.message}</p>
         </div>
       )
     }
@@ -98,6 +106,8 @@ class Connect extends Component {
             {
               enabled ? "" :
               <RefreshIndicator
+                left={0}
+                top={0}
                 status="loading"
                 className="loading" />
             }
