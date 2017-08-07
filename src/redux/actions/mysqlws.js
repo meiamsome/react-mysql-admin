@@ -75,10 +75,10 @@ export function createPool(pool_options) {
   }
 }
 
-export function query(q) {
+export function query(q, query_id_callback) {
   return (dispatch, getState) => {
     let pool = getState().mysqlws.pool.result;
-    let query_id = getState().mysqlws.queries.length;
+    let query_id = getState().mysqlws.next_query_id;
     dispatch({
       type: QUERY,
       payload: {
@@ -89,6 +89,7 @@ export function query(q) {
         id: query_id,
       },
     });
+    query_id_callback(query_id);
 
     pool.getConnection((err, connection) => {
       if(err) {

@@ -7,7 +7,8 @@ import {
 function mysqlws_reducer(state = {
   mysql: null,
   pool: null,
-  queries: [],
+  next_query_id: 0,
+  queries: {},
 }, action) {
   switch(action.type) {
     case SOCKET:
@@ -22,11 +23,15 @@ function mysqlws_reducer(state = {
       }
     case QUERY:
       let id = action.meta.id;
-      let queries = state.queries.slice();
-      queries[id] = action.payload;
+      let new_id = state.next_query_id;
+      if(id === new_id) new_id ++;
       return {
         ...state,
-        queries: queries,
+        next_query_id: new_id,
+        queries: {
+          ...state.queries,
+          [id]: action.payload,
+        },
       }
     default:
       return state;

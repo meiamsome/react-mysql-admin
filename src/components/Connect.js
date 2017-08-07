@@ -101,6 +101,7 @@ class Connect extends Component {
               <br />
             <RaisedButton
               label="Connect"
+              disabled={!enabled}
               primary
               type="submit" />
             {
